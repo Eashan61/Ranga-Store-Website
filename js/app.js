@@ -1,3 +1,4 @@
+//calling api
 const loadProducts = () => {
   const url = 'https://fakestoreapi.com/products';
   fetch(url)
