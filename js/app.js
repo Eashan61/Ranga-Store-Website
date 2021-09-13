@@ -26,11 +26,27 @@ const showProducts = (products) => {
       <p>Rating : ${product.rating.rate}</p>
       <p>Rating Number : ${product.rating.count}</p>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+      <button id="details-btn" onclick="modalOpen(${product.id})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
 };
+
+function modalOpen(id){
+  fetch(`https://fakestoreapi.com/products/${id}`)
+  .then(res=>res.json())
+  .then(json=>{
+   console.log(json)
+   document.getElementById('exampleModalLabel').innerText= `${json.title}`
+   document.getElementById('modal-body').innerHTML = `
+     <h3>$${json.price} </h3>
+     <p>${json.description} </p>
+     <h3>${json.category} </h3>
+
+   
+   `
+  })
+}
 
 let count = 0;
 const addToCart = (id, price) => {
